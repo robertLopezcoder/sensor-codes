@@ -1,0 +1,116 @@
+#include <Arduino.h>
+#include <Wire.h>
+#include <ArdusatSDK.h>
+
+ArdusatSerial serialConnection(SERIAL_MODE_HARDWARE_AND_SOFTWARE, 8, 9,);
+
+Luminosity lum;
+int ledState = HIGH;
+int ledPin = 13;
+void setup(void)
+{
+  pinMode(ledPin, OUTPUT);
+  lum.begin();
+
+  serialConnection.println("");
+}
+
+void loop(void)
+ accel.read();
+  gforce = (sqrt(sq(accel.x)+sq(accel.y)+sq(accel.z))/9.8); 
+  
+  serialConnection.println(valueToJSON("G-Force", DATA_UNIT_METER_PER_SECONDSQUARED, gforce));
+   
+  if (gforce>1.5) { 
+    digitalWrite(led10, HIGH);  
+    delay(pindelay);
+    }
+  else { 
+    digitalWrite(led10, LOW); 
+    }
+
+    if (gforce>2) { 
+    digitalWrite(led9, HIGH);  
+    delay(pindelay);
+    }
+  else { 
+    digitalWrite(led9, LOW); 
+    }
+
+    if (gforce>2.5) { 
+    digitalWrite(led8, HIGH);  
+    delay(pindelay);
+    }
+  else { 
+    digitalWrite(led8, LOW); 
+    }
+  
+  if (gforce>3) { 
+    digitalWrite(led7, HIGH); 
+    delay(pindelay);
+    }
+  else { 
+    digitalWrite(led7, LOW); 
+    }
+  
+   if (gforce>3.5) { 
+    digitalWrite(led6, HIGH); 
+    delay(pindelay);
+    }
+  else { 
+    digitalWrite(led6, LOW); 
+    } 
+    
+  if (gforce>4) { 
+    digitalWrite(led5, HIGH); 
+    delay(pindelay);
+    }
+  else { 
+    digitalWrite(led5, LOW); 
+    }
+  
+  if (gforce>4.5) { 
+    digitalWrite(led4, HIGH);
+    delay(pindelay);
+    }
+  else { 
+    digitalWrite(led4, LOW); 
+    }
+  
+   if (gforce>5) { 
+    digitalWrite(led3, HIGH);
+    delay(pindelay);
+    }
+  else { 
+    digitalWrite(led3, LOW); 
+    } 
+  
+  if (gforce>5.5) { 
+    digitalWrite(led2, HIGH);
+    delay(pindelay);
+    }
+  else { 
+    digitalWrite(led2, LOW); 
+    }
+  
+  if (gforce>6) { 
+    digitalWrite(led1, HIGH);
+    delay(pindelay);
+    }
+  else { 
+    digitalWrite(led1, LOW); 
+    }
+
+}
+{
+  serialConnection.println(lum.readToJSon("lum"));
+  delay(1000);
+  if (lum.lux < 10.0) {
+    ledState = HIGH;
+  }
+  else {
+    ledState = LOW;
+  }
+  digitalWrite(ledPin, ledState);
+  delay(1000);
+}
